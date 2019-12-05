@@ -2,7 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/',(req,res) =>{
-    res.send('Product routes is working');
+    res.status(200).json({
+        message: 'Products Routes is working'
+    })
 })
 
 module.exports = router;
