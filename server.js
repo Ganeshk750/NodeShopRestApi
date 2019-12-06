@@ -13,6 +13,17 @@ app.use(morgan('dev'));
 app.use(bodyPaser.urlencoded({extended: false}));
 app.use(bodyPaser.json());
 
+/* Setting ups headers */
+app.use((req,res,next) =>{
+    res.header("Access-Control-Allow-Origin","*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    if(req.method === 'OPTIONS'){
+        res.header("Access-Control-Allow-Methods",'PUT, POST PATCH, DELETE,GET');
+        return res.status(200).json({});
+    }
+    next();
+});
+
 app.get('/',(req,res) =>{
     res.status(200).json({
         message:'Wel Come To RestApi'
