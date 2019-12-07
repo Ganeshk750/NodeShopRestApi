@@ -2,11 +2,22 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const bodyPaser = require('body-parser');
+const mongoose = require('mongoose');
 const productRoutes = require('./api/routes/products');
 const ordersRoutes = require('./api/routes/orders');
 
 
 const port = process.env.PORT || 3000;
+
+///Database
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost:27017/mean-angular',{useNewUrlParser: true, useUnifiedTopology: true},err =>{
+    if(err){
+        console.log('Could NOT connect to database: ', err);
+        }else{
+            console.log('Connected to datbase');
+        }
+});
 
 /* Its acts like logger */
 app.use(morgan('dev'));
