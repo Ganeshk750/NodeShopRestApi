@@ -29,7 +29,22 @@ router.post('/',(req,res,next) =>{
 
 router.get('/:productId',(req,res,next) =>{
     const id = req.params.productId;
-    if(id === 'special'){
+    Product.findById(id)
+        .exec()
+        .then(doc =>{
+           console.log("Comming from database",doc); 
+           if(doc){
+            res.status(200).json(doc);
+           }else{
+             res.status(400).json({message:'No valid entry found for provided id'});
+           }
+          
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({error: err})
+        });
+    /* if(id === 'special'){
         res.status(200).json({
             message: 'You discovered new id',
             id: id
@@ -38,7 +53,8 @@ router.get('/:productId',(req,res,next) =>{
        res.status(200).json({
            message:'You passed an id'
        });
-    }
+    } */ //This is testing static code
+
 });
 
 
