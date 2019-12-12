@@ -21,6 +21,7 @@ mongoose.connect('mongodb://localhost:27017/mean-angular',{useNewUrlParser: true
 
 /* Its acts like logger */
 app.use(morgan('dev'));
+app.use('/uploads',express.static('uploads'));
 app.use(bodyPaser.urlencoded({extended: false}));
 app.use(bodyPaser.json());
 
