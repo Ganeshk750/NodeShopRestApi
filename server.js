@@ -5,6 +5,7 @@ const bodyPaser = require('body-parser');
 const mongoose = require('mongoose');
 const productRoutes = require('./api/routes/products');
 const ordersRoutes = require('./api/routes/orders');
+const customerRoutes = require('./api/routes/customer');
 
 
 const port = process.env.PORT || 3000;
@@ -43,8 +44,9 @@ app.get('/',(req,res) =>{
 }); 
 
 
-app.use('/products',productRoutes);
-app.use('/orders',ordersRoutes);
+app.use('/products', productRoutes);
+app.use('/orders', ordersRoutes);
+app.use('/customers', customerRoutes);
 
 /* Handling Error */
 app.use((req,res,next) =>{
