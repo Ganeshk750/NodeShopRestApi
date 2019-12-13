@@ -10,9 +10,14 @@ const customerRoutes = require('./api/routes/customer');
 
 const port = process.env.PORT || 3000;
 
+//mongoDB configuration
+const db = require('./setup/myurl').mongoURL
+
+
+
 ///Database
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/mean-angular',{useNewUrlParser: true, useUnifiedTopology: true},err =>{
+mongoose.connect(db,{useNewUrlParser: true, useUnifiedTopology: true},err =>{
     if(err){
         console.log('Could NOT connect to database: ', err);
         }else{

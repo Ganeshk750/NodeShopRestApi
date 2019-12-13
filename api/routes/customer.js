@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const key = require('../../setup/myurl').secret
 
 const Customer = require('../models/customer');
 
@@ -45,6 +47,46 @@ router.post('/signup', (req,res, next) =>{
        })
    
 });
+
+router.post('/login',(req,res,next) =>{
+    Customer.find({email: req.body.email})
+    .exec()
+    .then(customer =>{
+        if(customer.length < 1){
+            res.status(401).json({
+                message: 'login faield'
+            });
+        }
+        bcrypt.compare(req.body.password,customer[0].password,(err, result) =>{
+           if(err){
+            res.status(401).json({
+                message: 'login faield'
+            }); 
+           }
+           if(result){
+             const token = jwt.sign({
+                   email: customer[0].email,
+                   customerId: customer[0]._id
+               },
+                key, {expiresIn: "1h"}
+               );
+               res.status(200).json({
+                   message:'Login Successfull',
+                   token: token
+               })
+           }
+              res.status(401).json({
+                message: 'login faield'
+           });
+        });
+    })
+    .catch(err =>{
+        res.status(500).json({
+            error:err
+        });
+    })
+
+})
 
 router.delete('/:customerId',(req,res, next) =>{
     Customer.remove({_id: req.params.customerId})
