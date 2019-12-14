@@ -7,9 +7,6 @@ const productRoutes = require('./api/routes/products');
 const ordersRoutes = require('./api/routes/orders');
 const customerRoutes = require('./api/routes/customer');
 
-
-const port = process.env.PORT || 3000;
-
 //mongoDB configuration
 const db = require('./setup/myurl').mongoURL
 
@@ -17,6 +14,7 @@ const db = require('./setup/myurl').mongoURL
 
 ///Database
 mongoose.Promise = global.Promise;
+mongoose.set('useCreateIndex', true)// use for index  warning
 mongoose.connect(db,{useNewUrlParser: true, useUnifiedTopology: true},err =>{
     if(err){
         console.log('Could NOT connect to database: ', err);
@@ -30,6 +28,7 @@ app.use(morgan('dev'));
 app.use('/uploads',express.static('uploads'));
 app.use(bodyPaser.urlencoded({extended: false}));
 app.use(bodyPaser.json());
+
 
 /* Setting ups headers */
 app.use((req,res,next) =>{
@@ -68,6 +67,8 @@ app.use((error,req,res,next) =>{
    });
 });
 
+
+const port = process.env.PORT || 3000;
 app.listen(port, () =>{
     console.log('Server is running on:'+ `${port}`);
 })
