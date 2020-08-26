@@ -147,6 +147,7 @@ exports.get_orderbyId = (req, res, next) => {
     } */ //This is testing static code
 };
 
+/* UPDATE PRODUCT BY ID*/
 exports.update_productbyId = (req, res, next) => {
   const id = req.params.productId;
   const updateOps = {};
@@ -163,6 +164,30 @@ exports.update_productbyId = (req, res, next) => {
         request: {
           type: "GET",
           url: "http://localhost:3000/products/" + id,
+        },
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+};
+
+/* DELETE PRODUCT BY ID*/
+exports.delete_productbyId = (req, res, next) => {
+  /*  res.status(200).json({
+        message:'Deleted product'
+    }); */
+  const id = req.params.productId;
+  Product.remove({ _id: id })
+    .exec()
+    .then((result) => {
+      res.status(200).json({
+        message: "Product deleted",
+        request: {
+          type: "POST",
+          url: "http://localhost:3000/products",
+          body: { name: String, price: Number },
         },
       });
     })
