@@ -110,31 +110,33 @@ exports.adding_product = upload.single('productImage'), (req,res,next) =>{
     }) */
 };
 
-router.get('/:productId', checkAuth, (req,res,next) =>{
-    const id = req.params.productId;
-    Product.findById(id)
-        .select('name,price,_id, productImage')
-        .exec()
-        .then(doc =>{
-           console.log("Comming from database",doc); 
-           if(doc){
-            res.status(200).json({
-                product: doc,
-                request:{
-                    type: 'GET',
-                    url: 'http://localhost:3000/products'
-                }
-            });
-           }else{
-             res.status(400).json({message:'No valid entry found for provided id'});
-           }
-          
-        })
-        .catch(err => {
-            console.log(err)
-            res.status(500).json({error: err})
+/* GET PRODUCT BY ID */
+exports.get_orderbyId = (req, res, next) => {
+  const id = req.params.productId;
+  Product.findById(id)
+    .select("name,price,_id, productImage")
+    .exec()
+    .then((doc) => {
+      console.log("Comming from database", doc);
+      if (doc) {
+        res.status(200).json({
+          product: doc,
+          request: {
+            type: "GET",
+            url: "http://localhost:3000/products",
+          },
         });
-    /* if(id === 'special'){
+      } else {
+        res
+          .status(400)
+          .json({ message: "No valid entry found for provided id" });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+  /* if(id === 'special'){
         res.status(200).json({
             message: 'You discovered new id',
             id: id
@@ -144,5 +146,4 @@ router.get('/:productId', checkAuth, (req,res,next) =>{
            message:'You passed an id'
        });
     } */ //This is testing static code
-
-});
+};
