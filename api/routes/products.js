@@ -3,7 +3,7 @@ const router = express.Router();
 const multer = require("multer");
 const path = require("path");
 const checkAuth = require("../middleware/check-auth");
-const ProductController = require("../controllers/products");
+const ProductController = require("../controllers/product");
 
 
 //Multer setting
@@ -37,6 +37,12 @@ const upload = multer({
   fileFilter: fileFilter,
 });
 
+
+/**
+ * @swagger
+ * resourcePath: /products
+ * description: All about API
+ */
 router.get("/", ProductController.gets_allProducts);
 
 router.post("/", checkAuth, upload.single("productImage"), ProductController.adding_product);
