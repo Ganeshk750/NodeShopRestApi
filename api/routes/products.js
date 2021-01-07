@@ -38,11 +38,7 @@ const upload = multer({
 });
 
 
-/**
- * @swagger
- * resourcePath: /products
- * description: All about API
- */
+
 router.get("/", ProductController.gets_allProducts);
 
 router.post("/", checkAuth, upload.single("productImage"), ProductController.adding_product);
