@@ -34,7 +34,7 @@ app.use(bodyPaser.json());
 swaggerDoc(app);
 
 /* Setting ups headers */
-app.use((req, res, next) => {
+/* app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
@@ -45,32 +45,32 @@ app.use((req, res, next) => {
     return res.status(200).json({});
   }
   next();
-});
+}); */
 
-app.get("/", (req, res) => {
+/* app.get("/", (req, res) => {
   res.status(200).json({
     message: "Wel Come To RestApi",
   });
-});
-
+}); */
+app.use("/customers", customerRoutes);
 app.use("/products", productRoutes);
 app.use("/orders", ordersRoutes);
-app.use("/customers", customerRoutes);
+
 
 /* Handling Error */
-app.use((req, res, next) => {
+/* app.use((req, res, next) => {
   const error = new Error("Not Found");
   res.status(404);
   next(error);
-});
+}); */
 
-app.use((error, req, res, next) => {
+/* app.use((error, req, res, next) => {
   res.status(error.status || 500).json({
     error: {
       message: error.message,
     },
   });
-});
+}); */
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

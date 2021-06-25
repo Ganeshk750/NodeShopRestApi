@@ -27,11 +27,10 @@ const options = {
         },
       },
     },
-    host: "localhost:3000",
+    host: "http://localhost:3000",
     basePath: "/",
   },
-  /* apis: ["./routes/*.js", "/customers.js", "/products.js", "/orders.js"], */
-  apis: ["api/routes*.js'"],
+  apis: ["./api/routes/*.js"],
 };
 
 const spec = swaggerjsDoc(options);
