@@ -112,13 +112,12 @@ router.post("/", checkAuth, upload.single("productImage"), ProductController.add
  *      tags:
  *          - products
  *      parameters:
- *          - in: body
+ *          - in: qurey
  *            name: Product
  *            description: Product Id
  *            schema:
- *              type: object
- *              required:
- *                 - productId
+ *              type: string
+ *              required: true
  *              properties:
  *                  productId:
  *                      type: string
@@ -144,13 +143,12 @@ router.get("/:productId", checkAuth, ProductController.get_orderbyId);
  *      tags:
  *          - products
  *      parameters:
- *          - in: body
+ *          - in: qurey
  *            name: Product
  *            description: Product Name Update by Id
  *            schema:
- *              type: object
- *              required:
- *                 - productId
+ *              type: string
+ *              required: true
  *              properties:
  *                  productId:
  *                      type: string
@@ -181,19 +179,16 @@ router.patch("/:productId", checkAuth, ProductController.update_productbyId);
  *      tags:
  *          - products
  *      parameters:
- *          - in: body
+ *          - in: query
  *            name: Product
  *            description: Product Id
- *            schema:
- *              type: object
- *              required:
- *                 - productId
- *              properties:
- *                  productId:
- *                      type: string
- *                      minLength: 1
- *                      maxLength: 100
- *                      example: asdkjasfkdjasfh
+ *            required: true
+ *      properties:
+ *            productId:
+ *                  type: string
+ *                  minLength: 1
+ *                  maxLength: 100
+ *                  example: asdkjasfkdjasfh
  *      responses:
  *          '200':
  *              description: Product Deleted Successfully

@@ -86,19 +86,16 @@ router.post("/login", customerController.customer_Login);
  *      tags:
  *          - customers
  *      parameters:
- *          - in: body
- *            name: Customer
+ *          - in: query
+ *            name: string
  *            description: Customer Id
- *            schema:
- *              type: object
- *              required:
- *                 - customerId
- *              properties:
- *                  customerId:
- *                      type: string
- *                      minLength: 1
- *                      maxLength: 100
- *                      example: asdkjasfkdjasfh
+ *            required: true
+ *      properties:
+ *             productId:
+ *                type: string
+ *                minLength: 1
+ *                maxLength: 100
+ *                example: asdkjasfkdjasfh
  *      responses:
  *          '200':
  *              description: Resource deleted successfully
