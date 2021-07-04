@@ -99,6 +99,16 @@ router.post("/login", customerController.customer_Login);
  *                      minLength: 1
  *                      maxLength: 100
  *                      example: asdkjasfkdjasfh
+ *          - in: query
+ *            name: string
+ *            description: Customer Id
+ *            required: true
+ *      properties:
+ *             productId:
+ *                type: string
+ *                minLength: 1
+ *                maxLength: 100
+ *                example: asdkjasfkdjasfh
  *      responses:
  *          '200':
  *              description: Resource deleted successfully
